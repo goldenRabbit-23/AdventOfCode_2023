@@ -22,9 +22,9 @@ for line in lines:
             if color == 'blue':
                 blue = int(count)
 
-            max_red = max(max_red, red)
-            max_green = max(max_green, green)
-            max_blue = max(max_blue, blue)
+        max_red = max(max_red, red)
+        max_green = max(max_green, green)
+        max_blue = max(max_blue, blue)
 
     ans += max_red * max_green * max_blue
 
