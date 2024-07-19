@@ -13,24 +13,24 @@ one_pair = []
 high_card = []
 
 for line in data:
-    count = Counter(line[0])
+  count = Counter(line[0])
 
-    if len(count) == 1:  # five of a kind
-        five_kind.append(line)
-    elif len(count) == 2:
-        if count.most_common()[0][1] == 4:  # four of a kind
-            four_kind.append(line)
-        else:  # full house
-            full_house.append(line)
-    elif len(count) == 3:
-        if count.most_common()[0][1] == 3:  # three of a kind
-            three_kind.append(line)
-        else:  # two pair
-            two_pair.append(line)
-    elif len(count) == 4:  # one pair
-        one_pair.append(line)
-    else:  # high card
-        high_card.append(line)
+  if len(count) == 1:  # five of a kind
+    five_kind.append(line)
+  elif len(count) == 2:
+    if count.most_common()[0][1] == 4:  # four of a kind
+      four_kind.append(line)
+    else:  # full house
+      full_house.append(line)
+  elif len(count) == 3:
+    if count.most_common()[0][1] == 3:  # three of a kind
+      three_kind.append(line)
+    else:  # two pair
+      two_pair.append(line)
+  elif len(count) == 4:  # one pair
+    one_pair.append(line)
+  else:  # high card
+    high_card.append(line)
 
 card_order = 'AKQJT98765432'
 
@@ -51,7 +51,7 @@ cur_rank = len(data)
 winnings = 0
 
 for card in five_kind + four_kind + full_house + three_kind + two_pair + one_pair + high_card:
-    winnings += cur_rank * card[1]
-    cur_rank -= 1
+  winnings += cur_rank * card[1]
+  cur_rank -= 1
 
 print(winnings)
