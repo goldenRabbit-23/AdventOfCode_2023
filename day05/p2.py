@@ -5,29 +5,29 @@ inputs = list(map(int, inputs.split(':')[1].split()))
 
 seeds = []
 for i in range(0, len(inputs), 2):
-    seeds.append((inputs[i], inputs[i] + inputs[i + 1]))
+  seeds.append((inputs[i], inputs[i] + inputs[i + 1]))
 
 for block in blocks:
-    ranges = []
-    for line in block.splitlines()[1:]:
-        ranges.append(list(map(int, line.split())))
-    new = []
-    while seeds:
-        s, e = seeds.pop()
-        for a, b, c in ranges:
-            os = max(s, b)
-            oe = min(e, b + c)
-            if os < oe:  # overlap with some range
-                # map the overlapping parts
-                new.append((os - b + a, oe - b + a))
-                if os > s:  # non-overlapping part at the left of overlap start
-                    # put it back as it can be overlapped with other ranges
-                    seeds.append((s, os))
-                if oe < e:  # non-overlapping part at the right of overlap end
-                    seeds.append((oe, e))
-                break
-        else:  # completely not overlapping with all ranges
-            new.append((s, e))
-    seeds = new
+  ranges = []
+  for line in block.splitlines()[1:]:
+    ranges.append(list(map(int, line.split())))
+  new = []
+  while seeds:
+    s, e = seeds.pop()
+    for a, b, c in ranges:
+      os = max(s, b)
+      oe = min(e, b + c)
+      if os < oe:  # overlap with some range
+        # map the overlapping parts
+        new.append((os - b + a, oe - b + a))
+        if os > s:  # non-overlapping part at the left of overlap start
+          # put it back as it can be overlapped with other ranges
+          seeds.append((s, os))
+        if oe < e:  # non-overlapping part at the right of overlap end
+          seeds.append((oe, e))
+        break
+    else:  # completely not overlapping with all ranges
+      new.append((s, e))
+  seeds = new
 
 print(min(seeds)[0])  # final location ranges
