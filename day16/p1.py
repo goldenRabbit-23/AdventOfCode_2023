@@ -19,6 +19,7 @@ def main():
   row, col = len(grid), len(grid[0])
 
   energized = set()
+  visited = []
   q = deque()
 
   def in_bound(r, c):
@@ -28,12 +29,18 @@ def main():
   while q:
     r, c, dir = q.popleft()
     
-    # skip out-of-bounds case
+    # skip out-of-bounds cell
     if not in_bound(r, c):
+      continue
+
+    # skip already visited cell in certain direction
+    if (r, c, dir) in visited:
       continue
 
     # add in-bound cell
     energized.add((r, c))
+    # current cell is visited in certain direction
+    visited.append((r, c, dir))
 
     tile = grid[r][c]
     if tile == '.':
@@ -67,14 +74,8 @@ def main():
         # split into two beams
         q.append((r + delta[Dir.EAST.value][0], c + delta[Dir.EAST.value][1], Dir.EAST))
         q.append((r + delta[Dir.WEST.value][0], c + delta[Dir.WEST.value][1], Dir.WEST))
-
-    print(len(energized))
+  
+  print(len(energized))
 
 if __name__ == '__main__':
   main()
-
-# Part 1: 6855
-
-# real    1m32.397s
-# user    0m32.791s
-# sys     0m59.581s
