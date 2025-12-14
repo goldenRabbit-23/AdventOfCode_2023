@@ -1,10 +1,10 @@
 # 🎄 Advent of Code 2023 – Python Solutions
 
-Solutions for **Advent of Code 2023** written in Python.  
+Solutions for **Advent of Code 2023** written in Python.
 Each day lives in its own folder, with:
 
-- `p1.py` – solution for Part 1  
-- `p2.py` – solution for Part 2  
+- `p1.py` – solution for Part 1
+- `p2.py` – solution for Part 2
 
 ---
 
@@ -34,9 +34,9 @@ Each day lives in its own folder, with:
 | 20  | Pulse Propagation        | Simulate logic modules sending pulses and detect synchronization cycles. |
 | 21  | Step Counter             | Count reachable tiles after fixed steps on a repeating grid. |
 | 22  | Sand Slabs               | Simulate falling 3D bricks and analyze structural dependencies. |
-| 23  |                          |  |
-| 24  |                          |  |
-| 25  |                          |  |
+| 23  | A Long Walk              | Find the longest hike on a grid with forced slope directions, then redo with slopes treated as normal paths using graph compression. |
+| 24  | Never Tell Me The Odds   | Count future 2D intersections of hailstone trajectories within bounds, then solve for a 3D rock that intersects all paths. |
+| 25  | Snowverload              | Remove three edges to split a graph into two groups and return the product of group sizes. |
 ---
 
 ## 🔍 Day-by-Day Details
@@ -338,15 +338,46 @@ You walk a grid in exactly N steps.
 
 ---
 
-### Day 23:
+### Day 23: A Long Walk
+
+You’re given a hiking map with paths (`.`), walls (`#`), and slopes (`^ v < >`) that may force movement.
+
+**Part 1 – Slopes are slippery**
+- Start at the entrance and reach the exit.
+- Slopes act like one-way tiles: if you step on a slope, you must move in its direction.
+- Find the longest valid hike without revisiting tiles (a longest simple path).
+
+**Part 2 – Slopes become normal paths**
+- Treat all slopes as normal open tiles (`.`).
+- Compress the map into a smaller graph by collapsing straight corridors into weighted edges.
+- Compute the longest simple path in this graph from start to end.
 
 ---
 
-### Day 24:
+### Day 24: Never Tell Me The Odds
+
+Each hailstone has a 3D position and velocity; their paths extend infinitely forward in time.
+
+**Part 1 – 2D intersection counting**
+- Consider only the XY plane (ignore Z).
+- For every pair of hailstones, determine whether their trajectories intersect in the future (time ≥ 0 for both).
+- Count intersections that fall within a specified test-area bounding box.
+
+**Part 2 – One rock to hit them all**
+- You can throw a single rock with an unknown 3D starting position and velocity.
+- Find the rock’s position/velocity such that it collides with every hailstone (at some time per hailstone).
+- Solve as a system of equations (commonly via algebra/linear solving on a small subset), then output the required value (typically the sum of the rock’s starting coordinates).
 
 ---
 
-### Day 25:
+### Day 25: Snowverload
+
+You’re given an undirected graph of components connected by wires.
+
+**Part 1 – Cut the network**
+- Find three wires whose removal splits the graph into exactly two disconnected groups.
+- After removing them, compute the product of the sizes of the two groups.
+- Practical approach: find a minimum 3-edge cut (e.g., repeated shortest-path/betweenness-style counting, or a min-cut algorithm like Stoer–Wagner / Karger), then measure resulting component sizes.
 
 ---
 
